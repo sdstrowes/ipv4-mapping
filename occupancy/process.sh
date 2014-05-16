@@ -21,13 +21,13 @@ kill_workers() {
 
 trap "kill_workers; exit 0" INT
 
-#for f in data/*.prefixes ; do
-#	date=`echo $f | egrep -o "[0-9]{8}"`
-#	cat $f |
-#	./netsplit.pl |
-#	awk -v date=$date '{print date,$0}' &
-#	echo "Spawned worker" > /dev/stderr
-#done > data/gp.input
+for f in data/*.prefixes ; do
+	date=`echo $f | egrep -o "[0-9]{8}"`
+	cat $f |
+	./netsplit.pl |
+	awk -v date=$date '{print date,$0}' &
+	echo "Spawned worker" > /dev/stderr
+done > data/gp.input
 
 for w in `jobs -p`; do
 	wait $w
