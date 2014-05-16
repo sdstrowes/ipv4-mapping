@@ -50,7 +50,7 @@ my $total_occupancy = 0;
 my $total_blockcount = 0;
 my %region_occupancy = ();
 my %region_blockcount = ();
-for my $slash_eight (sort {$a <=> $b} keys %occupancy) {
+for my $slash_eight (0 .. 255) {
 	if ($verbose) {
 		print $slash_eight, " ", $occupancy{$slash_eight}, " ", $occupancy{$slash_eight} / 65536, "\n";
 	}
@@ -58,18 +58,26 @@ for my $slash_eight (sort {$a <=> $b} keys %occupancy) {
 	# The actual space available for public routing per /8 varies.
 	# See http://www.iana.org/assignments/ipv4-address-space/
 	my $space_available = 65536;
+	# 0: unavailable
+	if    ($slash_eight == 0)   {$space_available = 0}
+	# 10: unavailable
+	elsif ($slash_eight == 10)  {$space_available = 0}
 	# 100: 1x /10 unavailable
-	if    ($slash_eight eq "100") {$space_available = 49152}
+	elsif ($slash_eight == 100) {$space_available = 49152}
+	# 127: unavailable
+	elsif ($slash_eight == 127) {$space_available = 0}
 	# 169: 1x /16 unavailable
-	elsif ($slash_eight eq "169") {$space_available = 65280}
+	elsif ($slash_eight == 169) {$space_available = 65280}
 	# 172: 1x /12 unavailable
-	elsif ($slash_eight eq "172") {$space_available = 61440}
+	elsif ($slash_eight == 172) {$space_available = 61440}
 	# 192: 3x /24 and 1x /16 unavailable
-	elsif ($slash_eight eq "192") {$space_available = 65277}
+	elsif ($slash_eight == 192) {$space_available = 65277}
 	# 198: 1x /15 and 1x /24 unavailable
-	elsif ($slash_eight eq "198") {$space_available = 65023}
+	elsif ($slash_eight == 198) {$space_available = 65023}
 	# 203: 1x /24 unavailable
-	elsif ($slash_eight eq "203") {$space_available = 65535}
+	elsif ($slash_eight == 203) {$space_available = 65535}
+	# 224 -- 255: unavailable
+	elsif ($slash_eight >= 224) {$space_available = 0}
 
 	$total_occupancy  += $occupancy{$slash_eight};
 	$total_blockcount += $space_available;
@@ -78,6 +86,6 @@ for my $slash_eight (sort {$a <=> $b} keys %occupancy) {
 }
 
 for my $region (sort keys %region_occupancy) {
-	print $region, "\t", ($region_occupancy{$region}/$region_blockcount{$region})*100,"\t",$region_occupancy{$region}*256,"\n";
+	print $region, "\t", $region_blockcount{$region} ? ($region_occupancy{$region}/$region_blockcount{$region})*100 : 0),"\t",$region_occupancy{$region}*256,"\n";
 }
 print "TOTAL\t",($total_occupancy/$total_blockcount)*100,"\t",$total_occupancy*256,"\n";
