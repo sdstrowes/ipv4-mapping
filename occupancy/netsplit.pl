@@ -78,6 +78,6 @@ for my $slash_eight (sort {$a <=> $b} keys %occupancy) {
 }
 
 for my $region (sort keys %region_occupancy) {
-	print $region, "\t", ($region_occupancy{$region}/$region_blockcount{$region})*100,"\t",$region_occupancy{$region},"\n";
+	print $region, "\t", ($region_occupancy{$region}/$region_blockcount{$region})*100,"\t",$region_occupancy{$region}*256,"\n";
 }
-print "TOTAL\t",($total_occupancy/$total_blockcount)*100,"\t",$total_occupancy,"\n";
+print "TOTAL\t",($total_occupancy/$total_blockcount)*100,"\t",$total_occupancy*256,"\n";

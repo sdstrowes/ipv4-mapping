@@ -46,7 +46,6 @@ gnuplot_preamble='
  set tics nomirror;
  set key top left;
  set xlabel "Date";
- set ylabel "Percentage advertised";
 
  set linestyle 1 lt 1 lw 2 lc rgb "#1f77b4";
  set linestyle 2 lt 2 lw 2 lc rgb "#ff7f0e";
@@ -61,6 +60,7 @@ gnuplot <<EOF
  $gnuplot_preamble
  set yrange [0:100];
  set ytics 0,10;
+ set ylabel "Percentage advertised";
  set out "occupancy-relative.png";
  plot '<grep LACNIC  data/gp.input' using 1:3 w lines ls 1 ti "LACNIC",\
       '<grep ARIN    data/gp.input' using 1:3 w lines ls 2 ti "ARIN",\
@@ -74,13 +74,16 @@ EOF
 gnuplot <<EOF
  $gnuplot_preamble
  set yrange [0:*];
+ set format y "%.1f bn"
+ set ylabel "Number of IPs";
+ set yrange [0:3.702]
  set out "occupancy-absolute.png";
- plot '<grep LACNIC  data/gp.input' using 1:4 w lines ls 1 ti "LACNIC",\
-      '<grep ARIN    data/gp.input' using 1:4 w lines ls 2 ti "ARIN",\
-      '<grep RIPE    data/gp.input' using 1:4 w lines ls 3 ti "RIPE",\
-      '<grep AFRINIC data/gp.input' using 1:4 w lines ls 4 ti "AfriNIC",\
-      '<grep APNIC   data/gp.input' using 1:4 w lines ls 5 ti "APNIC",\
-      '<grep LEGACY  data/gp.input' using 1:4 w lines ls 6 ti "Legacy",\
-      '<grep TOTAL   data/gp.input' using 1:4 w lines ls 7 ti "Total"
+ plot '<grep LACNIC  data/gp.input' using 1:(\$4/1000000000) w lines ls 1 ti "LACNIC",\
+      '<grep ARIN    data/gp.input' using 1:(\$4/1000000000) w lines ls 2 ti "ARIN",\
+      '<grep RIPE    data/gp.input' using 1:(\$4/1000000000) w lines ls 3 ti "RIPE",\
+      '<grep AFRINIC data/gp.input' using 1:(\$4/1000000000) w lines ls 4 ti "AfriNIC",\
+      '<grep APNIC   data/gp.input' using 1:(\$4/1000000000) w lines ls 5 ti "APNIC",\
+      '<grep LEGACY  data/gp.input' using 1:(\$4/1000000000) w lines ls 6 ti "Legacy",\
+      '<grep TOTAL   data/gp.input' using 1:(\$4/1000000000) w lines ls 7 ti "Total"
 EOF
 
