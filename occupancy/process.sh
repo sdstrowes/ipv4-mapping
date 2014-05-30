@@ -35,25 +35,23 @@ for w in `jobs -p`; do
 done
 
 gnuplot_preamble='
- set term pngcairo size 800,600;
+ set term pngcairo size 800,500 dashed;
  set xdata time;
  set timefmt "%Y%m%d";
- set format x "%b-%Y";
+ set format x "%b %Y";
  set xtics rotate "20020510",31557600;
  set xrange ["20020501":"20140518"];
  set border 3;
  set grid;
  set tics nomirror;
- set key top left;
- set xlabel "Date";
 
  set linestyle 1 lt 1 lw 2 lc rgb "#1f77b4";
- set linestyle 2 lt 2 lw 2 lc rgb "#ff7f0e";
- set linestyle 3 lt 3 lw 2 lc rgb "#2ca02c";
- set linestyle 4 lt 4 lw 2 lc rgb "#d62728";
- set linestyle 5 lt 5 lw 2 lc rgb "#853ab0";
- set linestyle 6 lt 6 lw 2 lc rgb "#3aa8b0";
- set linestyle 7 lt 7 lw 2 lc rgb "#000000";
+ set linestyle 2 lt 1 lw 2 lc rgb "#ff7f0e";
+ set linestyle 3 lt 1 lw 2 lc rgb "#2ca02c";
+ set linestyle 4 lt 1 lw 2 lc rgb "#d62728";
+ set linestyle 5 lt 1 lw 2 lc rgb "#853ab0";
+ set linestyle 6 lt 1 lw 2 lc rgb "#3aa8b0";
+ set linestyle 7 lt 1 lw 2 lc rgb "#000000";
 '
 
 gnuplot <<EOF
@@ -61,6 +59,7 @@ gnuplot <<EOF
  set yrange [0:100];
  set ytics 0,10;
  set ylabel "Percentage advertised";
+ set key at 150000000,95
  set out "occupancy-relative.png";
  plot '<grep LACNIC  data/gp.input' using 1:3 w lines ls 1 ti "LACNIC",\
       '<grep ARIN    data/gp.input' using 1:3 w lines ls 2 ti "ARIN",\
@@ -73,17 +72,19 @@ EOF
 
 gnuplot <<EOF
  $gnuplot_preamble
- set yrange [0:*];
- set format y "%.1f bn"
- set ylabel "Number of IPs";
- set yrange [0:3.702]
+ set format y "%.0f"
+ set ylabel "Number of /8s";
+ set yrange [0:256]
+ set ytics 0,16
+ set arrow 1 lw 0.5 lt 2 lc rgb "#000000" from graph 0,first 220.67 to graph 1,first 220.67 nohead 
+ set key at 150000000,210
  set out "occupancy-absolute.png";
- plot '<grep LACNIC  data/gp.input' using 1:(\$4/1000000000) w lines ls 1 ti "LACNIC",\
-      '<grep ARIN    data/gp.input' using 1:(\$4/1000000000) w lines ls 2 ti "ARIN",\
-      '<grep RIPE    data/gp.input' using 1:(\$4/1000000000) w lines ls 3 ti "RIPE",\
-      '<grep AFRINIC data/gp.input' using 1:(\$4/1000000000) w lines ls 4 ti "AfriNIC",\
-      '<grep APNIC   data/gp.input' using 1:(\$4/1000000000) w lines ls 5 ti "APNIC",\
-      '<grep LEGACY  data/gp.input' using 1:(\$4/1000000000) w lines ls 6 ti "Legacy",\
-      '<grep TOTAL   data/gp.input' using 1:(\$4/1000000000) w lines ls 7 ti "Total"
+ plot '<grep LACNIC  data/gp.input' using 1:(\$4/16777216) w lines ls 1 ti "LACNIC",\
+      '<grep ARIN    data/gp.input' using 1:(\$4/16777216) w lines ls 2 ti "ARIN",\
+      '<grep RIPE    data/gp.input' using 1:(\$4/16777216) w lines ls 3 ti "RIPE",\
+      '<grep AFRINIC data/gp.input' using 1:(\$4/16777216) w lines ls 4 ti "AfriNIC",\
+      '<grep APNIC   data/gp.input' using 1:(\$4/16777216) w lines ls 5 ti "APNIC",\
+      '<grep LEGACY  data/gp.input' using 1:(\$4/16777216) w lines ls 6 ti "Legacy",\
+      '<grep TOTAL   data/gp.input' using 1:(\$4/16777216) w lines ls 7 ti "Total"
 EOF
 
