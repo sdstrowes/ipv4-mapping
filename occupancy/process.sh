@@ -61,11 +61,11 @@ gnuplot <<EOF
  set ylabel "Percentage advertised";
  set key at 150000000,95
  set out "occupancy-relative.png";
- plot '<grep LACNIC  data/gp.input' using 1:3 w lines ls 1 ti "LACNIC",\
-      '<grep ARIN    data/gp.input' using 1:3 w lines ls 2 ti "ARIN",\
-      '<grep RIPE    data/gp.input' using 1:3 w lines ls 3 ti "RIPE",\
-      '<grep AFRINIC data/gp.input' using 1:3 w lines ls 4 ti "AfriNIC",\
-      '<grep APNIC   data/gp.input' using 1:3 w lines ls 5 ti "APNIC",\
+ plot '<grep ARIN    data/gp.input' using 1:3 w lines ls 1 ti "ARIN",\
+      '<grep APNIC   data/gp.input' using 1:3 w lines ls 2 ti "APNIC",\
+      '<grep RIPE    data/gp.input' using 1:3 w lines ls 3 ti "RIPE NCC",\
+      '<grep LACNIC  data/gp.input' using 1:3 w lines ls 4 ti "LACNIC",\
+      '<grep AFRINIC data/gp.input' using 1:3 w lines ls 5 ti "AfriNIC",\
       '<grep LEGACY  data/gp.input' using 1:3 w lines ls 6 ti "Legacy",\
       '<grep TOTAL   data/gp.input' using 1:3 w lines ls 7 ti "Total"
 EOF
@@ -79,11 +79,11 @@ gnuplot <<EOF
  set arrow 1 lw 0.5 lt 2 lc rgb "#000000" from graph 0,first 220.67 to graph 1,first 220.67 nohead 
  set key at 150000000,210
  set out "occupancy-absolute.png";
- plot '<grep LACNIC  data/gp.input' using 1:(\$4/16777216) w lines ls 1 ti "LACNIC",\
-      '<grep ARIN    data/gp.input' using 1:(\$4/16777216) w lines ls 2 ti "ARIN",\
-      '<grep RIPE    data/gp.input' using 1:(\$4/16777216) w lines ls 3 ti "RIPE",\
-      '<grep AFRINIC data/gp.input' using 1:(\$4/16777216) w lines ls 4 ti "AfriNIC",\
-      '<grep APNIC   data/gp.input' using 1:(\$4/16777216) w lines ls 5 ti "APNIC",\
+ plot '<grep ARIN    data/gp.input' using 1:(\$4/16777216) w lines ls 1 ti "ARIN",\
+      '<grep APNIC   data/gp.input' using 1:(\$4/16777216) w lines ls 2 ti "APNIC",\
+      '<grep RIPE    data/gp.input' using 1:(\$4/16777216) w lines ls 3 ti "RIPE NCC",\
+      '<grep LACNIC  data/gp.input' using 1:(\$4/16777216) w lines ls 4 ti "LACNIC",\
+      '<grep AFRINIC data/gp.input' using 1:(\$4/16777216) w lines ls 5 ti "AfriNIC",\
       '<grep LEGACY  data/gp.input' using 1:(\$4/16777216) w lines ls 6 ti "Legacy",\
       '<grep TOTAL   data/gp.input' using 1:(\$4/16777216) w lines ls 7 ti "Total"
 EOF
