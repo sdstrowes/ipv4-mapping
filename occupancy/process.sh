@@ -2,13 +2,11 @@
 
 # curl http://routeviews.org/bgpdata/2002.05/RIBS/rib.20020510.0008.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20050510.prefixes
 # curl http://routeviews.org/bgpdata/2003.05/RIBS/rib.20030510.0012.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20030510.prefixes
-# curl http://routeviews.org/bgpdata/2004.05/RIBS/rib.20040510.0019.bz2 |
-# bzcat | ./bgpdump -m - |
+# curl http://routeviews.org/bgpdata/2004.05/RIBS/rib.20040510.0019.bz2 | bzcat | ./bgpdump -m - |
 # awk -F\| '{if ($7 != "3277 8482 28968 3246") {print $6}}' |
 # uniq > data/20040510.prefixes
 # curl http://routeviews.org/bgpdata/2005.05/RIBS/rib.20050510.0029.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20050510.prefixes
-# curl http://routeviews.org/bgpdata/2006.05/RIBS/rib.20060510.0153.bz2 |
-# bzcat | ./bgpdump -m - |
+# curl http://routeviews.org/bgpdata/2006.05/RIBS/rib.20060510.0153.bz2 | bzcat | ./bgpdump -m - |
 # awk -F\| '{if ($7 != "2905 701 1660") {print $6}}' |
 # uniq > data/20060510.prefixes
 # curl http://routeviews.org/bgpdata/2007.05/RIBS/rib.20070510.0159.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20070510.prefixes
