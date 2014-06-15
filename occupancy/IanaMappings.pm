@@ -6,7 +6,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK);
 $VERSION     = 1.00;
 @ISA         = qw(Exporter);
 @EXPORT      = ();
-@EXPORT_OK   = qw(%Iana_Region %Iana_Region_Legacy);
+@EXPORT_OK   = qw(%Iana_Region %Iana_Region_Legacy %Legacy_Names);
 
 our %Legacy_Names = (
     3 => "General Electric Company",
