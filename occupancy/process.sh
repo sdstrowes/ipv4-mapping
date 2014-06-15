@@ -1,15 +1,24 @@
 #!/bin/bash
 
+# curl http://routeviews.org/bgpdata/2002.05/RIBS/rib.20020510.0008.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20050510.prefixes
+# curl http://routeviews.org/bgpdata/2003.05/RIBS/rib.20030510.0012.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20030510.prefixes
 # curl http://routeviews.org/bgpdata/2004.05/RIBS/rib.20040510.0019.bz2 |
-# bzcat |
-# ./bgpdump -m - |
+# bzcat | ./bgpdump -m - |
 # awk -F\| '{if ($7 != "3277 8482 28968 3246") {print $6}}' |
 # uniq > data/20040510.prefixes
-
-#curl http://routeviews.org/bgpdata/2006.05/RIBS/rib.20060510.0153.bz2 |
-#./bgpdump -m - |
-#awk -F\| '{if ($7 != "2905 701 1660") {print $6}}' |
-#uniq > data/20060510.prefixes
+# curl http://routeviews.org/bgpdata/2005.05/RIBS/rib.20050510.0029.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20050510.prefixes
+# curl http://routeviews.org/bgpdata/2006.05/RIBS/rib.20060510.0153.bz2 |
+# bzcat | ./bgpdump -m - |
+# awk -F\| '{if ($7 != "2905 701 1660") {print $6}}' |
+# uniq > data/20060510.prefixes
+# curl http://routeviews.org/bgpdata/2007.05/RIBS/rib.20070510.0159.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20070510.prefixes
+# curl http://routeviews.org/bgpdata/2008.05/RIBS/rib.20080510.0057.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20080510.prefixes
+# curl http://routeviews.org/bgpdata/2009.05/RIBS/rib.20090510.0159.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20090510.prefixes
+# curl http://routeviews.org/bgpdata/2010.05/RIBS/rib.20100510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20100510.prefixes
+# curl http://routeviews.org/bgpdata/2011.05/RIBS/rib.20110510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20110510.prefixes
+# curl http://routeviews.org/bgpdata/2012.05/RIBS/rib.20120510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20120510.prefixes
+# curl http://routeviews.org/bgpdata/2013.05/RIBS/rib.20130510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20130510.prefixes
+# curl http://routeviews.org/bgpdata/2014.05/RIBS/rib.20140510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20140510.prefixes
 
 kill_workers() {
 	echo ""
