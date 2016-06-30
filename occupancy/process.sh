@@ -18,6 +18,9 @@
 # curl http://routeviews.org/bgpdata/2013.05/RIBS/rib.20130510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20130510.prefixes
 # curl http://routeviews.org/bgpdata/2014.05/RIBS/rib.20140510.0000.bz2 | bzcat | ./bgpdump -m - | awk -F\| '{print $6}' | uniq > data/20140510.prefixes
 
+curl http://routeviews.org/bgpdata/2016.05/RIBS/rib.20160510.0000.bz2 | bunzip2 > /tmp/rib 
+~/proj/mrt-parser/mrt -f /tmp/rib | awk '{print $1}' | uniq > data/20160510.prefixes
+
 kill_workers() {
 	echo ""
 	for w in `pgrep -P $$`; do

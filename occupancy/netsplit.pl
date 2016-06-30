@@ -19,9 +19,16 @@ if ($verbose) {
 
 my $n = 0;
 my %space_hash = ();
+
 while (<>) {
 	# This isn't smart, but take every single prefix, break it into /24s, and store each /24.
-	my @blocks = NetAddr::IP->new($_)->split(24);
+	my @blocks;
+	my ($net, $mask) = split(/\//);
+	if ($mask < 24) {
+		@blocks = NetAddr::IP->new($_)->split(24);
+	} else {
+		@blocks = NetAddr::IP->new($_);
+	};
 	for my $block (@blocks) {
 		$space_hash{$block} = 1;
 	}
